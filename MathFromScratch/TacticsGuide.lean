@@ -33,14 +33,15 @@ Queste tattiche introducono nuove ipotesi.
 theorem intro_example : P → P := by
   intro h -- Ora hai ipotesi h : P e goal P
   -- COMPLETA: usa h per risolvere il goal
-  sorry
+  exact h
 
 
 -- Puoi introdurre più ipotesi in una volta
 theorem intro_multiple : P → Q → P := by
   intro hp hq  -- Equivale a: intro hp; intro hq
   -- COMPLETA: quale ipotesi usi?
-  sorry
+  exact hp
+  
 
 /-! ### `constructor` - Costruzione di Congiunzioni/Strutture
 **Cosa fa:** Se il goal è `P ∧ Q`, lo divide in due goal: `P` e `Q`  
@@ -53,9 +54,9 @@ theorem constructor_example : P → Q → (P ∧ Q) := by
   constructor
   -- Ora hai due goal da dimostrare
   · -- Goal 1: P
-    sorry
+    exact hp
   · -- Goal 2: Q  
-    sorry
+    exact hq
 
 /-!
 ## 2. TATTICHE DI ELIMINAZIONE  
@@ -82,7 +83,7 @@ theorem apply_example : (P → Q) → P → Q := by
   intro h hp
   apply h  -- h : P → Q, goal: Q, quindi nuovo goal: P
   -- COMPLETA: risolvi il nuovo goal P
-  sorry
+  exact hp
 
 /-! ### `cases` - Analisi per Casi
 **Cosa fa:** Divide un'ipotesi in tutti i suoi casi possibili
@@ -95,13 +96,15 @@ theorem cases_example : P ∨ Q → (P → R) → (Q → R) → R := by
   cases h with
   | inl hp => 
     -- Caso: h è della forma inl(hp) dove hp : P
-    apply hpr
     -- COMPLETA: risolvi usando hp
-    sorry
+    apply hpr
+    exact hp
   | inr hq =>
     -- Caso: h è della forma inr(hq) dove hq : Q  
     -- COMPLETA: risolvi usando hq
-    sorry
+    apply hqr
+    exact hq
+
 
 /-!
 ## 3. TATTICHE DI RISCRITTURA
@@ -208,27 +211,54 @@ Completa questi esercizi usando le tattiche appena imparate.
 -- Esercizio 1: Usa intro, constructor, exact
 theorem practice_1 : P → Q → (Q ∧ P) := by
   -- COMPLETA: ricorda l'ordine in Q ∧ P
-  sorry
+  intro p q
+  constructor
+  . exact q 
+  . exact p
 
 -- Esercizio 2: Usa cases per la disgiunzione
 theorem practice_2 : (P ∨ Q) → (Q ∨ P) := by
   -- COMPLETA: mostra la commutatività della disgiunzione
-  sorry
+  intro h
+  cases h with 
+  | inl hp => 
+    right
+    exact hp
+  | inr hq => 
+    left -- questo non lo sapevo...
+    exact hq
+
 
 -- Esercizio 3: Usa apply e intro
 theorem practice_3 : (P → Q → R) → (P ∧ Q → R) := by
   -- COMPLETA: trasforma una funzione di due argomenti in una che prende una coppia
-  sorry
+  intro h p
+  apply h
+  apply p.left
+  exact p.right
+  
 
 -- Esercizio 4: Usa induction sui naturali  
 theorem practice_4 : ∀ n : Nat, 0 + n = n := by
   -- COMPLETA: dimostra che 0 è neutro a sinistra per +
-  sorry
+  intro h
+  induction h with
+  | zero =>
+    rfl
+  | succ s hi =>
+    calc 0 + s.succ 
+     _ = (0 + s).succ := by rfl
+     _ = s.succ := by rw [hi] 
+    
+    
+    
 
 -- Esercizio 5: Usa simp e rw
 theorem practice_5 : ∀ n : Nat, n + (0 + 0) = n + 0 := by
   -- COMPLETA: semplifica l'espressione
-  sorry
+  intro h
+  calc  h + (0 + 0) = h + 0 := by rfl
+
 
 /-!
 ## 7. TATTICHE AVANZATE (Bonus)

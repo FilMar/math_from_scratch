@@ -43,7 +43,7 @@ variable (P Q R : Prop)        -- P, Q, R sono proposizioni
 
 -- Prova tu: dichiara una variabile b di tipo Bool
 -- ESERCIZIO 1: completa la riga sotto
-variable (b : sorry)
+variable (b : Bool)
 
 /-!
 ## 3. SIMBOLI LOGICI FONDAMENTALI
@@ -84,7 +84,7 @@ In VS Code puoi digitare:
 
 -- ESERCIZIO 2: scrivi "se n è maggiore di m, allora n non è uguale a m"
 -- Usa: n > m → ¬(n = m)
-#check sorry
+#check n > m → ¬(n = m) 
 
 /-!
 ## 5. QUANTIFICATORI
@@ -100,10 +100,10 @@ Per dire "per tutti" e "esiste"
 #check ∃ n : Nat, n > 10
 
 -- ESERCIZIO 3: scrivi "per ogni numero naturale n, n è uguale a se stesso"
-#check sorry
+#check ∀ (n : Nat), n = n
 
 -- ESERCIZIO 4: scrivi "esiste un numero naturale che è maggiore di 5"
-#check sorry
+#check ∃ n: Nat, n > 5
 
 /-!
 ## 6. FUNZIONI E TIPI DI FUNZIONE
@@ -121,7 +121,7 @@ Le funzioni prendono un input e danno un output.
 #check Nat.mul    -- moltiplicazione di numeri naturali
 
 -- ESERCIZIO 5: che tipo ha una funzione che prende una stringa e restituisce un booleano?
-#check sorry
+#check String → Bool
 
 /-!
 ## 7. STRUTTURA DI UN TEOREMA
@@ -138,7 +138,7 @@ theorem esempio_base : P → P := sorry
 theorem esempio_con_variabili (A B : Prop) : A → B → A := sorry
 
 -- ESERCIZIO 6: scrivi un teorema che dice "P e Q implica P"
-theorem esercizio_e_implica : sorry := sorry
+theorem esercizio_e_implica : P → Q := sorry
 
 -- ESERCIZIO 7: scrivi un teorema che dice "se P implica Q e Q implica R, allora P implica R"
 theorem esercizio_transitivita : sorry := sorry
@@ -158,10 +158,14 @@ def raddoppia (n : Nat) : Nat := n + n
 def somma_tre (a b c : Nat) : Nat := a + b + c
 
 -- ESERCIZIO 8: definisci una funzione che prende un numero e restituisce il suo triplo
-def triplo (n : Nat) : Nat := sorry
+def triplo (n : Nat) : Nat := 3 * n
+
+#check triplo
 
 -- ESERCIZIO 9: definisci una funzione che prende due booleani e restituisce la loro congiunzione
-def e_logico (a b : Bool) : Bool := sorry
+def e_logico (a b : Bool) : Bool := a ∧ b
+
+#check e_logico
 
 /-!
 ## 9. CONTROLLI E VERIFICHE
@@ -177,7 +181,7 @@ Comandi utili per esplorare.
 #eval mio_numero + 10
 
 -- ESERCIZIO 10: usa #eval per calcolare il triplo di 7
-#eval sorry
+#eval triplo 7
 
 /-!
 ## 10. RICAPITOLO: HAI IMPARATO...
