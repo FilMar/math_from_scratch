@@ -1,0 +1,10 @@
+name = "math_from_scratch"
+version = "0.1.0"
+defaultTargets = ["math_from_scratch"]
+
+[[lean_lib]]
+name = "MathFromScratch"
+
+[[lean_exe]]
+name = "math_from_scratch"
+root = "Main"
