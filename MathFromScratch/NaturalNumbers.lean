@@ -1,273 +1,229 @@
 /-!
-# Numeri Naturali e Induzione in Lean 4
+# Numeri Naturali e Induzione Matematica
 
-Questo file introduce i numeri naturali seguendo gli Assiomi di Peano
-e la tecnica dell'induzione matematica.
+La costruzione rigorosa dei numeri naturali seguendo gli Assiomi di Peano e l'introduzione 
+del principio di induzione matematica - uno strumento fondamentale per la dimostrazione.
 
-## I Numeri Naturali in Lean:
-- `Nat` è il tipo dei numeri naturali (0, 1, 2, ...)
-- `Nat.zero` o `0` è il numero zero
-- `Nat.succ n` è il successore di n (n + 1)
-- Ogni numero naturale è o zero o il successore di qualche altro numero
+**Sviluppo Storico:**
+- **Euclide (circa 300 a.C.)**: Prime proprietà aritmetiche negli "Elementi"
+- **Pierre de Fermat (1601-1665)**: Primo uso dell'induzione matematica
+- **Blaise Pascal (1623-1662)**: Formalizzazione del principio di induzione
+- **Giuseppe Peano (1858-1932)**: Assiomatizzazione rigorosa dei naturali (1889)
 
-## Induzione Matematica:
-Per dimostrare una proprietà P(n) per tutti i numeri naturali:
-1. Caso base: dimostra P(0)  
-2. Passo induttivo: dimostra che P(k) → P(k+1) per ogni k
-
-## Sintassi dell'Induzione in Lean:
-- `induction n with | zero => ... | succ k ih => ...`
-- `ih` è l'ipotesi induttiva: assume P(k) per dimostrare P(k+1)
+**I Numeri Naturali:**
+Ogni numero naturale è o zero o il successore di qualche altro numero naturale.
+Questa definizione ricorsiva cattura l'essenza dell'infinito numerabile.
 -/
 
 /-!
-## Esercizio 1: Proprietà di Base del Successore
-Iniziamo con alcune proprietà fondamentali.
+## Assiomi di Peano: Proprietà del Successore
+
+**Giuseppe Peano (1858-1932)** rivoluzionò l'aritmetica con la sua assiomatizzazione. 
+Professore all'Università di Torino, Peano era ossessionato dalla precisione matematica
+e creò persino una lingua artificiale (Latino sine flexione) per la comunicazione scientifica.
+
+**Significato:** Questi assiomi garantiscono che ogni numero naturale sia unico e 
+che la successione 0, 1, 2, 3, ... sia ben definita senza ambiguità.
 -/
 
--- Zero non è il successore di nessun numero
-theorem zero_ne_succ (n : Nat) : 0 ≠ Nat.succ n := by
-  -- COMPLETA: dimostra che 0 ≠ succ(n)
-  -- Suggerimento: usa `intro h` per assumere l'uguaglianza, poi trova la contraddizione
-  sorry
+theorem zero_ne_succ (n : Nat) : 0 ≠ Nat.succ n := sorry
 
--- Il successore è iniettivo
-theorem succ_inj {m n : Nat} : Nat.succ m = Nat.succ n → m = n := by
-  -- COMPLETA: se succ(m) = succ(n), allora m = n
-  -- Suggerimento: usa `intro h` e poi `injection h`
-  sorry
+theorem succ_inj {m n : Nat} : Nat.succ m = Nat.succ n → m = n := sorry
 
 /-!
-## Esercizio 2: Addizione sui Naturali
-L'addizione è definita ricorsivamente:
-- a + 0 = a
-- a + succ(b) = succ(a + b)
+## Addizione: La Prima Operazione
 
-Dimostriamo le sue proprietà fondamentali.
+**Definizione Ricorsiva:**
+- a + 0 = a (elemento neutro)
+- a + succ(b) = succ(a + b) (costruzione iterativa)
+
+**Scoperta Storica:** Anche se l'addizione sembra naturale, la sua definizione rigorosa 
+richiese millenni. I Babilonesi (2000 a.C.) sapevano calcolare, ma non avevano 
+una teoria formale delle operazioni.
 -/
 
--- Addizione con zero a destra (questo è per definizione)
-theorem add_zero (n : Nat) : n + 0 = n := by
-  -- COMPLETA: questo dovrebbe essere immediato
-  -- Suggerimento: prova `rfl` (riflessività)
-  sorry
-
--- Addizione con zero a sinistra (richiede induzione!)
-theorem zero_add (n : Nat) : 0 + n = n := by
-  -- COMPLETA: dimostra per induzione su n
-  -- Caso base: 0 + 0 = 0
-  -- Passo induttivo: se 0 + k = k, allora 0 + succ(k) = succ(k)
-  induction n with
-  | zero => 
-    -- Caso base: dimostra 0 + 0 = 0
-    sorry
-  | succ k ih =>
-    -- Passo induttivo: hai ih : 0 + k = k
-    -- Devi dimostrare: 0 + succ(k) = succ(k)
-    sorry
-
--- Successore e addizione
-theorem add_succ (m n : Nat) : m + Nat.succ n = Nat.succ (m + n) := by
-  -- COMPLETA: questo dovrebbe essere per definizione
-  sorry
-
-theorem succ_add (m n : Nat) : Nat.succ m + n = Nat.succ (m + n) := by
-  -- COMPLETA: richiede induzione su n
-  -- Suggerimento: simile a zero_add ma con un pattern diverso
-  sorry
+theorem add_zero (n : Nat) : n + 0 = n := sorry
 
 /-!
-## Esercizio 3: Commutatività dell'Addizione
-Questo è un teorema importante che richiede i lemmi precedenti.
+## Zero come Elemento Neutro a Sinistra
+
+**Sfida Storica:** Dimostrare che 0 + n = n richiede induzione! Questo sorprese i 
+matematici del XIX secolo: proprietà "ovvie" necessitavano dimostrazioni non banali.
+
+**L'Induzione Matematica:** Principio scoperto da Fermat nel XVII secolo durante 
+i suoi studi sui numeri figurati. Pascal lo rese famoso, ma la prima dimostrazione 
+rigorosa appartiene a Peano.
 -/
 
-theorem add_comm (m n : Nat) : m + n = n + m := by
-  -- COMPLETA: dimostra la commutatività per induzione
-  -- Suggerimento: usa i teoremi che hai dimostrato sopra
-  -- Fai induzione su una delle variabili e usa zero_add, succ_add, add_succ
-  sorry
+theorem zero_add (n : Nat) : 0 + n = n := sorry
+
+theorem add_succ (m n : Nat) : m + Nat.succ n = Nat.succ (m + n) := sorry
+
+theorem succ_add (m n : Nat) : Nat.succ m + n = Nat.succ (m + n) := sorry
 
 /-!
-## Esercizio 4: Associatività dell'Addizione
-Altra proprietà fondamentale.
+## Commutatività dell'Addizione
+
+**Carl Friedrich Gauss (1777-1855)** raccontava di aver scoperto questa proprietà
+da bambino quando, punito dal maestro a calcolare 1+2+...+100, trovò immediatamente
+la risposta usando 50×101. Aveva intuito che l'ordine non conta.
+
+**Significato Profondo:** La commutatività collega l'aritmetica alla geometria:
+contare oggetti in righe o colonne dà lo stesso risultato.
 -/
 
-theorem add_assoc (a b c : Nat) : (a + b) + c = a + (b + c) := by
-  -- COMPLETA: dimostra l'associatività per induzione
-  -- Suggerimento: fai induzione su c
-  sorry
+theorem add_comm (m n : Nat) : m + n = n + m := sorry
 
 /-!
-## Esercizio 5: Moltiplicazione
-La moltiplicazione è definita come:
-- a * 0 = 0  
-- a * succ(b) = a * b + a
+## Associatività: Raggruppare le Operazioni
 
-Dimostra alcune proprietà di base.
+**Arthur Cayley (1821-1895)** fu il primo a studiare sistematicamente questa proprietà
+nell'algebra astratta. Avvocato per metà carriera, poi matematico puro, dimostrò che
+molte strutture condividono le stesse proprietà operazionali.
 -/
 
-theorem mul_zero (n : Nat) : n * 0 = 0 := by
-  -- COMPLETA: per definizione
-  sorry
-
-theorem zero_mul (n : Nat) : 0 * n = 0 := by
-  -- COMPLETA: richiede induzione
-  sorry
-
-theorem mul_one (n : Nat) : n * 1 = n := by
-  -- COMPLETA: ricorda che 1 = succ(0)
-  -- Dovrai usare mul_zero e add_zero
-  sorry
-
-theorem one_mul (n : Nat) : 1 * n = n := by
-  -- COMPLETA: richiede induzione
-  sorry
+theorem add_assoc (a b c : Nat) : (a + b) + c = a + (b + c) := sorry
 
 /-!
-## Esercizio 6: Proprietà Distributiva
-La moltiplicazione distribuisce sull'addizione.
+## Moltiplicazione: Addizione Ripetuta
+
+**Definizione Ricorsiva:**
+- a × 0 = 0 (non ci sono copie di a)
+- a × succ(b) = a × b + a (una copia in più di a)
+
+**Evoluzione Storica:** Gli Egizi (1650 a.C.) moltiplicavano solo per raddoppiamento.
+I Greci introdussero la moltiplicazione generale, ma la vedevano geometricamente 
+come area di rettangoli.
 -/
 
-theorem mul_add (a b c : Nat) : a * (b + c) = a * b + a * c := by
-  -- COMPLETA: dimostra la distributività a sinistra
-  -- Suggerimento: induzione su c, usa add_assoc
-  sorry
+theorem mul_zero (n : Nat) : n * 0 = 0 := sorry
 
-theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c := by
-  -- COMPLETA: dimostra la distributività a destra
-  sorry
+theorem zero_mul (n : Nat) : 0 * n = 0 := sorry
+
+theorem mul_one (n : Nat) : n * 1 = n := sorry
+
+theorem one_mul (n : Nat) : 1 * n = n := sorry
 
 /-!
-## Esercizio 6.5: Commutatività e Associatività della Moltiplicazione
-Queste sono proprietà fondamentali che completano la teoria della moltiplicazione.
-Per dimostrare la commutatività serve prima un lemma ausiliario.
+## Proprietà Distributiva
+
+**Scoperta da:** Euclide negli "Elementi" (circa 300 a.C.)
+**Proposizione:** La moltiplicazione distribuisce sull'addizione
+
+**Significato Geometrico:** Se hai un rettangolo di dimensioni a×(b+c), puoi spezzarlo
+in due rettangoli a×b e a×c. Euclide lo vedeva come proprietà delle aree, non dei numeri!
+
+**Impatto Moderno:** Questa proprietà è alla base dell'algebra: permette di "aprire le parentesi"
+in espressioni come a(b+c) = ab + ac.
 -/
 
--- Lemma utile per la commutatività
-theorem mul_succ (a b : Nat) : a * Nat.succ b = a * b + a := by
-  -- COMPLETA: questo dovrebbe essere per definizione della moltiplicazione
-  -- La moltiplicazione è definita come: a * succ(b) = a * b + a
-  sorry
+theorem mul_add (a b c : Nat) : a * (b + c) = a * b + a * c := sorry
 
--- Commutatività della moltiplicazione
-theorem mul_comm (m n : Nat) : m * n = n * m := by
-  -- COMPLETA: dimostra per induzione su n
-  -- Caso base: m * 0 = 0 * m
-  -- Passo induttivo: se m * k = k * m, allora m * succ(k) = succ(k) * m
-  -- Suggerimento: usa mul_zero, zero_mul, mul_succ, e i teoremi precedenti
-  sorry
-
--- Associatività della moltiplicazione  
-theorem mul_assoc (a b c : Nat) : (a * b) * c = a * (b * c) := by
-  -- COMPLETA: dimostra per induzione su c
-  -- Suggerimento: usa mul_zero, mul_succ, mul_add
-  sorry
+theorem add_mul (a b c : Nat) : (a + b) * c = a * c + b * c := sorry
 
 /-!
-## Esercizio 6.6: Potenze (Esponenziazione)
-Definiamo l'esponenziazione ricorsivamente e dimostriamo le sue proprietà.
+## Commutatività e Associatività della Moltiplicazione
 
-Definizione ricorsiva delle potenze:
-- a^0 = 1 (per ogni a)  
-- a^(succ n) = a^n * a
+**Brahmagupta (628 d.C.)** fu il primo matematico a trattare sistematicamente queste proprietà
+nei suoi testi indiani. Lavorando con numeri negativi (sconosciuti ai Greci), scoprì
+che le regole dell'aritmetica hanno validità universale.
 -/
 
--- Definizione delle potenze (per evitare conflitti con Nat.pow)
+theorem mul_succ (a b : Nat) : a * Nat.succ b = a * b + a := sorry
+
+theorem mul_comm (m n : Nat) : m * n = n * m := sorry
+
+theorem mul_assoc (a b c : Nat) : (a * b) * c = a * (b * c) := sorry
+
+/-!
+## Esponenziazione: Moltiplicazione Ripetuta
+
+**Definizione Ricorsiva:**
+- a^0 = 1 (per convenzione universale)
+- a^(succ n) = a^n × a (una moltiplicazione in più)
+
+**Michael Stifel (1487-1567)** introdusse la notazione moderna per gli esponenti.
+Monaco agostiniano poi convertito al protestantesimo, fu perseguitato per le sue idee
+religiose ma rivoluzionò la notazione algebrica.
+
+**Controversia dello Zero:** Perché a^0 = 1? Questa convenzione fu dibattuta per secoli.
+La risposta viene dalle proprietà: a^(m+n) = a^m × a^n richiede che a^0 = 1.
+-/
+
 def myPow (a : Nat) : Nat → Nat
   | 0 => 1
   | Nat.succ n => myPow a n * a
 
--- Sintassi più carina (uso ** per evitare conflitti)
 infix:80 " ** " => myPow
 
--- Proprietà di base delle potenze
-theorem pow_zero (a : Nat) : a ** 0 = 1 := by
-  -- COMPLETA: questo è per definizione
-  sorry
+theorem pow_zero (a : Nat) : a ** 0 = 1 := sorry
 
-theorem pow_succ (a n : Nat) : a ** Nat.succ n = a ** n * a := by
-  -- COMPLETA: questo è per definizione
-  sorry
+theorem pow_succ (a n : Nat) : a ** Nat.succ n = a ** n * a := sorry
 
--- Potenza di 1
-theorem pow_one (a : Nat) : a ** 1 = a := by
-  -- COMPLETA: usa pow_succ e pow_zero e mul_one
-  -- Ricorda che 1 = succ(0)
-  sorry
+theorem pow_one (a : Nat) : a ** 1 = a := sorry
 
--- 1 elevato a qualsiasi potenza è 1
-theorem one_pow (n : Nat) : 1 ** n = 1 := by
-  -- COMPLETA: dimostra per induzione su n
-  -- Suggerimento: usa pow_zero, pow_succ, one_mul
-  sorry
+theorem one_pow (n : Nat) : 1 ** n = 1 := sorry
 
--- 0 elevato a succ(n) è 0
-theorem zero_pow_succ (n : Nat) : 0 ** Nat.succ n = 0 := by
-  -- COMPLETA: usa pow_succ e zero_mul
-  sorry
-
--- Proprietà delle potenze: a^(m+n) = a^m * a^n
-theorem pow_add (a m n : Nat) : a ** (m + n) = a ** m * a ** n := by
-  -- COMPLETA: dimostra per induzione su n
-  -- Caso base: a^(m + 0) = a^m * a^0
-  -- Passo induttivo: se a^(m + k) = a^m * a^k, allora a^(m + succ k) = a^m * a^(succ k)
-  -- Suggerimento: usa add_zero, add_succ, pow_zero, pow_succ, mul_one, mul_assoc
-  sorry
-
--- Proprietà delle potenze: (a^m)^n = a^(m*n)
-theorem pow_mul (a m n : Nat) : (a ** m) ** n = a ** (m * n) := by
-  -- COMPLETA: questo è più avanzato, richiede induzione e proprietà precedenti
-  -- Suggerimento: induzione su n, usa pow_zero, pow_succ, pow_add, mul_zero, mul_succ
-  sorry
-
--- Proprietà delle potenze: (a*b)^n = a^n * b^n
-theorem mul_pow (a b n : Nat) : (a * b) ** n = a ** n * b ** n := by
-  -- COMPLETA: dimostra per induzione su n
-  -- Suggerimento: usa pow_zero, pow_succ, mul_one, mul_assoc, mul_comm per riorganizzare
-  sorry
+theorem zero_pow_succ (n : Nat) : 0 ** Nat.succ n = 0 := sorry
 
 /-!
-## Esercizio 7: Relazione di Ordine
-Definiamo quando un numero è minore o uguale a un altro.
+## Leggi degli Esponenti
+
+**John Wallis (1616-1703)** fu il primo a studiare sistematicamente le proprietà degli esponenti.
+Matematico inglese e decrittografo per Oliver Cromwell, introdusse il simbolo ∞ per l'infinito
+e anticipò il calcolo integrale.
+
+**Legge Fondamentale:** a^(m+n) = a^m × a^n
+Questa proprietà trasforma l'addizione degli esponenti in moltiplicazione delle potenze,
+collegando le tre operazioni aritmetiche in una gerarchia elegante.
 -/
 
--- La relazione ≤ sui naturali (per evitare conflitti con Nat.le)
+theorem pow_add (a m n : Nat) : a ** (m + n) = a ** m * a ** n := sorry
+
+theorem pow_mul (a m n : Nat) : (a ** m) ** n = a ** (m * n) := sorry
+
+theorem mul_pow (a b n : Nat) : (a * b) ** n = a ** n * b ** n := sorry
+
+/-!
+## Relazione d'Ordine
+
+**Definizione:** m ≤ n se esiste k tale che m + k = n
+**Significato:** Cattura l'intuizione che "minore o uguale" significa "si può raggiungere aggiungendo qualcosa"
+
+**Origini:** Il concetto di ordine è antico quanto il contare, ma la sua formalizzazione 
+matematica risale a **Richard Dedekind (1831-1916)**, che studiò i "tagli" per costruire i reali.
+-/
+
 def myLe (m n : Nat) : Prop := ∃ k, m + k = n
 
--- Sintassi più carina
 infix:50 " ≤≤ " => myLe
 
--- Proprietà di base dell'ordine
-theorem le_refl (n : Nat) : n ≤≤ n := by
-  -- COMPLETA: ogni numero è ≤ a se stesso
-  -- Suggerimento: usa la definizione di ≤ con k = 0
-  sorry
+theorem le_refl (n : Nat) : n ≤≤ n := sorry
 
-theorem le_trans {a b c : Nat} : a ≤≤ b → b ≤≤ c → a ≤≤ c := by
-  -- COMPLETA: la relazione ≤ è transitiva
-  -- Suggerimento: se a + k₁ = b e b + k₂ = c, allora a + (k₁ + k₂) = c
-  sorry
-
-theorem le_antisymm {m n : Nat} : m ≤≤ n → n ≤≤ m → m = n := by
-  -- COMPLETA: se m ≤ n e n ≤ m, allora m = n
-  -- Suggerimento: se m + k₁ = n e n + k₂ = m, cosa puoi dire di k₁ e k₂?
-  sorry
+theorem le_trans {a b c : Nat} : a ≤≤ b → b ≤≤ c → a ≤≤ c := sorry
 
 /-!
-## Esercizio Bonus: Un Teorema Più Avanzato
-Dimostra che l'addizione è cancellativa.
+## Antisimmetria dell'Ordine
+
+**Teorema Fondamentale:** Se m ≤ n e n ≤ m, allora m = n
+
+**Importanza:** Questo principio distingue l'ordine totale (sui naturali) da ordini più generali.
+È alla base del principio di buon ordinamento che caratterizza i numeri naturali.
 -/
 
-theorem add_cancel_left {a b c : Nat} : a + b = a + c → b = c := by
-  -- COMPLETA: se a + b = a + c, allora b = c
-  -- Questo è più difficile e potrebbe richiedere tecniche avanzate
-  sorry
+theorem le_antisymm {m n : Nat} : m ≤≤ n → n ≤≤ m → m = n := sorry
 
 /-!
-## Note per lo Studio:
-1. Inizia con i teoremi più semplici (zero_ne_succ, add_zero)
-2. L'induzione segue sempre lo stesso pattern: caso base + passo induttivo  
-3. Usa sempre i teoremi precedenti per dimostrare quelli successivi
-4. La tattica `simp` può semplificare espressioni aritmetiche
-5. `rw [theorem_name]` riscrive usando un teorema di uguaglianza
+## Cancellazione nell'Addizione
+
+**Teorema:** Se a + b = a + c, allora b = c
+
+**Giuseppe Peano** considerava questo teorema così fondamentale da includerlo 
+tra i suoi assiomi originali. Dimostra che l'addizione è "fedele": numeri diversi 
+producono sempre somme diverse quando aggiunti allo stesso numero.
+
+**Conseguenza:** Questo principio è essenziale per "risolvere equazioni" - 
+il fondamento dell'algebra elementare.
 -/
+
+theorem add_cancel_left {a b c : Nat} : a + b = a + c → b = c := sorry
