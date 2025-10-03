@@ -5,7 +5,7 @@ Il fondamento di ogni ragionamento matematico. La logica proposizionale studia i
 basilari dell'inferenza logica che rendono possibile la dimostrazione matematica.
 
 **Sviluppo Storico:**
-- **Aristotele (384-322 a.C.)**: Primo studio sistematico della logica nell'"Organon"
+- **Aristotele (384-322 a.C.)**: Primo studio sistematico della logica nell'"Organon" tramite i sillogismi
 - **Stoici (III secolo a.C.)**: Svilupparono la logica proposizionale e le implicazioni
 - **George Boole (1815-1864)**: Approccio algebrico alla logica in "Laws of Thought" (1854)
 - **Gottlob Frege (1848-1925)**: Logica simbolica moderna in "Begriffsschrift" (1879)
@@ -27,7 +27,9 @@ non fu formalmente enunciato fino allo sviluppo della logica moderna. Aristotele
 lo prese come assunzione implicita nei suoi sillogismi.
 -/
 
-theorem impl_refl : P → P := sorry
+theorem impl_refl : P → P := by
+  intro h
+  exact h
 
 /-!
 ## Transitività dell'Implicazione

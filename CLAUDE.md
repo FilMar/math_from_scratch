@@ -12,12 +12,15 @@ Ricostruire la matematica dalle fondamenta con focus storico e concettuale, non 
 - **Storia ricca:** Ogni teorema ha contesto storico e aneddoti
 - **Tutti `sorry`:** L'utente impara dimostrando
 - **Connessioni:** Ogni concetto si collega alla narrativa più ampia
+- **Ordine numerato:** Tutti i file `.lean` devono avere prefisso numerico (01_, 02_, etc.) per indicare l'ordine di studio
 
 ---
 
 ## 📝 **Template per Nuovi File**
 
 ### **Struttura Standard:**
+
+**IMPORTANTE:** Tutti i nuovi file devono seguire la convenzione di naming `XX_NomeFile.lean` dove XX è il numero progressivo (01, 02, 03, etc.).
 
 ```lean
 /-!
@@ -183,6 +186,7 @@ theorem [altro_teorema] : [statement] := sorry
 - Storia e aneddoti presenti?
 - Connessioni con altri file?
 - Tutti teoremi `sorry`?
+- **Nome file con prefisso numerico corretto?**
 
 ---
 
