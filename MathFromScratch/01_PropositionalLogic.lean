@@ -26,6 +26,9 @@ affermazione segue da se stessa - un principio fondamentale di identità nella l
 non fu formalmente enunciato fino allo sviluppo della logica moderna. Aristotele 
 lo prese come assunzione implicita nei suoi sillogismi.
 -/
+theorem impl : P → Q  := by
+  intro p
+  apply p
 
 theorem impl_refl : P → P := by
   intro h
@@ -43,7 +46,11 @@ quindi Socrate è mortale." Questa stessa struttura logica è alla base di ogni
 dimostrazione matematica che procede attraverso passaggi intermedi.
 -/
 
-theorem impl_trans : (P → Q) → (Q → R) → (P → R) := sorry
+theorem impl_trans : (P → Q) → (Q → R) → (P → R) := by
+  intro a b p
+  apply b
+  apply a
+  exact p
 
 /-!
 ## Congiunzione (AND Logico)
@@ -55,11 +62,21 @@ anche se non formalizzato con simboli moderni fino al lavoro di Boole.
 In matematica, usiamo costantemente affermazioni come "n è pari E n > 10".
 -/
 
-theorem and_intro : P → Q → (P ∧ Q) := sorry
+theorem and_intro : P → Q → (P ∧ Q) := by
+  intro a b
+  apply And.intro -- si puo' usare anche il costructor, ma secondo me e' meno esplicito
+  apply a
+  apply b
+    
 
-theorem and_elim_left : (P ∧ Q) → P := sorry
 
-theorem and_elim_right : (P ∧ Q) → Q := sorry
+theorem and_elim_left : (P ∧ Q) → P := by
+  intro a
+  apply a.left
+
+theorem and_elim_right : (P ∧ Q) → Q := by
+  intro a
+  apply a.right
 
 /-!
 ## Disgiunzione (OR Logico)
