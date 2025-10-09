@@ -26,9 +26,6 @@ affermazione segue da se stessa - un principio fondamentale di identità nella l
 non fu formalmente enunciato fino allo sviluppo della logica moderna. Aristotele 
 lo prese come assunzione implicita nei suoi sillogismi.
 -/
-theorem impl : P → Q  := by
-  intro p
-  apply p
 
 theorem impl_refl : P → P := by
   intro h
@@ -90,12 +87,43 @@ usa l'OR esclusivo ("colpevole O innocente") mentre la matematica usa l'OR inclu
 portando a secoli di dibattito filosofico sul significato "naturale" di "o".
 -/
 
-theorem or_intro_left : P → (P ∨ Q) := sorry
+theorem or_intro_left : P → (P ∨ Q) := by
+  intro p
+  apply Or.intro_left
+  apply p
 
-theorem or_intro_right : Q → (P ∨ Q) := sorry
 
-theorem or_elim : (P ∨ Q) → (P → R) → (Q → R) → R := sorry
 
+theorem or_intro_right : Q → (P ∨ Q) := by
+  intro q
+  apply Or.intro_right
+  apply q
+
+/-! ## Il teorema di eliminazione dell'OR (la regola di inferenza) 
+
+è un principio fondamentale della logica noto come Ragionamento per Casi (o Case Analysis).
+Sebbene il principio stesso sia utilizzato fin dai tempi di Aristotele (circa IV secolo a.C.) e fosse implicito nella logica tradizionale, 
+la sua formulazione esplicita e sistematica come regola formale di inferenza all'interno di un sistema logico moderno si deve principalmente
+al lavoro del logico tedesco Gerhard Gentzen negli anni '30 del XX secolo.
+
+**Il Contributo di Gentzen**
+Gentzen, nei suoi lavori del 1934-1935,
+sviluppò i sistemi di Deduzione Naturale (come quello su cui si basa Lean) e il Calcolo dei Sequenti.
+Nel sistema di Deduzione Naturale, Gentzen definì le regole logiche in coppie:
+Regole di Introduzione (che dicono come costruire una formula con un connettivo).
+Regole di Eliminazione (che dicono come usare una formula con un connettivo per giungere a una conclusione).
+La regola di Eliminazione dell'OR (∨E nella notazione di Gentzen, che è l'equivalente del tuo or_elim) fu stabilita come una delle regole centrali
+per definire il significato dell'operatore "OR" in modo formale e rigoroso. 
+-/
+theorem or_elim : (P ∨ Q) → (P → R) → (Q → R) → R := by
+  intro a b c
+  cases a with
+  | inl ap =>
+    apply b
+    exact ap
+  | inr aq =>
+    apply c
+    exact aq
 /-!
 ## Leggi di De Morgan
 
@@ -113,7 +141,10 @@ attraverso la negazione. Sono fondamentali per l'algebra booleana e l'informatic
 Quando scrivi codice con condizioni come `!(a && b)`, stai usando l'intuizione di De Morgan.
 -/
 
-theorem de_morgan_1 : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := sorry
+theorem de_morgan_1 : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := by
+  constructor
+  intro a
+  apply NonAnd
 
 /-!
 ## Commutatività delle Operazioni Logiche
