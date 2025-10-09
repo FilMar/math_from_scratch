@@ -144,7 +144,14 @@ Quando scrivi codice con condizioni come `!(a && b)`, stai usando l'intuizione d
 theorem de_morgan_1 : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := by
   constructor
   intro a
-  apply NonAnd
+  by_cases ap : P
+  by_cases aq : Q
+  apply False.elim
+  apply a
+  
+
+  
+
 
 /-!
 ## Commutatività delle Operazioni Logiche
