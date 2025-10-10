@@ -143,11 +143,21 @@ Quando scrivi codice con condizioni come `!(a && b)`, stai usando l'intuizione d
 
 theorem de_morgan_1 : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := by
   constructor
-  intro a
-  by_cases ap : P
-  by_cases aq : Q
-  apply False.elim
-  apply a
+  · intro h
+    by_cases hp: P
+    · right
+      by_cases hq: Q
+      · have hpq : P ∧ Q := ⟨hp, hq⟩
+        contradiction
+      · exact hq
+    · left
+      exact hp
+  · intro h hp
+    cases h with
+    | inl a => exact a hp.left
+    | inr b => exact b hp.right
+  
+
   
 
   
