@@ -156,12 +156,6 @@ theorem de_morgan_1 : ¬(P ∧ Q) ↔ (¬P ∨ ¬Q) := by
     cases h with
     | inl a => exact a hp.left
     | inr b => exact b hp.right
-  
-
-  
-
-  
-
 
 /-!
 ## Commutatività delle Operazioni Logiche
@@ -173,9 +167,20 @@ il concetto che "A e B" significa lo stesso di "B e A" era riconosciuto dai logi
 mostrando che le operazioni logiche seguono molte delle stesse leggi dell'aritmetica.
 -/
 
-theorem and_comm : (P ∧ Q) ↔ (Q ∧ P) := sorry
+theorem myand_comm : (P ∧ Q) ↔ (Q ∧ P) := by
+  constructor
+  · intro a
+    by_cases ap : P
+    · by_cases aq : Q
+      · have b : Q ∧ P := ⟨aq, ap⟩
+        exact b
+      · exfalso
+        have b : ¬Q ∧ P := ⟨aq, ap⟩
+        have c : 
+        contradiction
 
-theorem or_comm : (P ∨ Q) ↔ (Q ∨ P) := sorry
+
+theorem myor_comm : (P ∨ Q) ↔ (Q ∨ P) := sorry
 
 /-!
 ## Associatività
